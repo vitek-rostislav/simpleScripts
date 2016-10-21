@@ -6,10 +6,12 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $output = curl_exec($ch);
 $issues = json_decode($output, true);
 $file = fopen('issues.csv', 'w');
-fputcsv($file, ['Název', 'Přiřazeno k', 'Stav']);
+fputcsv($file, ['id', 'Název', 'Popis', 'Přiřazeno k', 'Stav']);
 foreach ($issues as $issue) {
 	$data = [
+		$issue['iid'],
 		$issue['title'],
+		$issue['description'],
 		$issue['assignee']['name'],
 		$issue['state'],
 	];
